@@ -7,12 +7,12 @@
     An interactive, PWA-ready Single Page Application (SPA) designed to educate users about diabetes prevention, provide healthy diet plans, and calculate Body Mass Index (BMI). 
   </p>
 
-  <p>
+  
   
 
-    <a href="https://wazefapress.github.io/Diabetes-Comprehensive-Guide/"><strong>View Demo</strong></a> ·
+    <a href="https://wazefapress.github.io/Diabetes-Comprehensive-Guide/"><strong>View Demo</strong></a>
  
-  </p>
+  
 </div>
 
 <hr>
