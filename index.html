@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- ================= SEO & Social Media Meta Tags ================= -->
+    <title>دليل السكري الشامل | رفيقك لصحة أفضل</title>
+    <meta name="description" content="تطبيق إرشادي شامل وتفاعلي لمرضى السكري، يحتوي على نصائح للوقاية، أنظمة غذائية مخصصة، وحاسبات طبية لتقييم حالتك الصحية.">
+    <meta name="keywords" content="مرض السكري, صحة, حمية غذائية لمرضى السكري, حاسبة كتلة الجسم, الوقاية من السكري, علاج السكري">
+    <meta name="author" content="هيثم زيدان">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="دليل السكري الشامل | رفيقك لصحة أفضل">
+    <meta property="og:description" content="تطبيق إرشادي تفاعلي يحتوي على كل ما يهم مريض السكري من حمية، وقاية، وحاسبات طبية.">
+    <meta property="og:image" content="icon512.png">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="دليل السكري الشامل">
+    <meta name="twitter:description" content="دليل تفاعلي متكامل للمساعدة في إدارة مرض السكري والوقاية منه.">
+    
+    <!-- PWA Manifest Link -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0d6efd">
+
+    <!-- ================= Stylesheets ================= -->
+    <!-- Bootstrap 5 RTL -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 70px; /* To prevent navbar overlap */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .main-content {
+            flex: 1;
+        }
+        .card-icon {
+            font-size: 3rem;
+            color: #0d6efd;
+            margin-bottom: 15px;
+        }
+        .result-box {
+            display: none;
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================= Navbar ================= -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="bi bi-heart-pulse-fill text-danger me-1"></i> دليل السكري
+            </a>
+            <div class="d-flex gap-2">
+                <!-- زر التثبيت يظهر فقط إذا كان التطبيق يدعم PWA ولم يتم تثبيته -->
+                <button class="btn btn-warning btn-sm fw-bold d-none" id="installBtn">
+                    <i class="bi bi-download"></i> تثبيت
+                </button>
+                <button class="btn btn-outline-light btn-sm" id="shareBtn">
+                    <i class="bi bi-share-fill"></i> مشاركة
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ================= Main Content ================= -->
+    <main class="container main-content my-4">
+        
+        <!-- Hero Section -->
+        <div class="p-4 p-md-5 mb-4 rounded text-bg-light shadow-sm text-center">
+            <h1 class="display-5 fw-bold text-primary">مرحباً بك في دليلك الصحي</h1>
+            <p class="col-md-8 mx-auto fs-5 text-muted">
+                تطبيقك التفاعلي الشامل لإدارة صحتك. استكشف طرق الوقاية، الأنظمة الغذائية، وراقب مؤشراتك الحيوية.
+            </p>
+        </div>
+
+        <div class="row g-4">
+            
+            <!-- قسم الوقاية -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm border-0 text-center p-3">
+                    <div class="card-body">
+                        <i class="bi bi-shield-check card-icon"></i>
+                        <h4 class="card-title fw-bold">الوقاية من السكري</h4>
+                        <p class="card-text text-muted">خطوات عملية للوقاية من النوع الثاني من السكري وإدارة مستويات السكر بفعالية.</p>
+                        <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#preventionModal">اقرأ المزيد</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم الحمية الغذائية -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm border-0 text-center p-3">
+                    <div class="card-body">
+                        <i class="bi bi-apple card-icon text-success"></i>
+                        <h4 class="card-title fw-bold">الحمية الغذائية</h4>
+                        <p class="card-text text-muted">جداول وأنظمة غذائية متوازنة مصممة خصيصاً لتجنب الارتفاع المفاجئ للسكر في الدم.</p>
+                        <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#dietModal">عرض الحمية</button>
+                    </div>
+                </div>
+            </div>
+<!-- ================= قسم النظام الغذائي اليومي ================= -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="card shadow-sm border-0">
+                    <div class="card-header bg-success text-white d-flex align-items-center">
+                        <i class="bi bi-calendar2-week fs-4 me-2 ms-2"></i> 
+                        <h4 class="mb-0 fw-bold">نموذج لنظام غذائي يومي لمرضى السكري</h4>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="accordion accordion-flush" id="dietPlanAccordion">
+                            
+                            <!-- وجبة الإفطار -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingBreakfast">
+                                    <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBreakfast" aria-expanded="true" aria-controls="collapseBreakfast">
+                                        <i class="bi bi-sunrise text-warning ms-2"></i> وجبة الإفطار (8:00 صباحاً)
+                                    </button>
+                                </h2>
+                                <div id="collapseBreakfast" class="accordion-collapse collapse show" aria-labelledby="headingBreakfast" data-bs-parent="#dietPlanAccordion">
+                                    <div class="accordion-body bg-light">
+                                        <ul class="mb-0">
+                                            <li>شريحة أو شريحتين من خبز القمح الكامل (الخبز الأسمر).</li>
+                                            <li>بيضة مسلوقة أو 3 ملاعق من الفول مضاف إليها زيت زيتون وليمون، أو قطعة جبن قريش (قليلة الدسم).</li>
+                                            <li>طبق صغير من الخضروات (خيار، خس، فلفل أخضر).</li>
+                                            <li>كوب شاي أو قهوة بدون سكر (يمكن استخدام بدائل السكر الآمنة).</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- وجبة خفيفة (سناك 1) -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingSnack1">
+                                    <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSnack1" aria-expanded="false" aria-controls="collapseSnack1">
+                                        <i class="bi bi-cup-hot text-secondary ms-2"></i> وجبة خفيفة أولى (11:00 صباحاً)
+                                    </button>
+                                </h2>
+                                <div id="collapseSnack1" class="accordion-collapse collapse" aria-labelledby="headingSnack1" data-bs-parent="#dietPlanAccordion">
+                                    <div class="accordion-body bg-light">
+                                        <ul class="mb-0">
+                                            <li>ثمرة فاكهة طازجة (تفاح، برتقال، أو نصف كوب من التوت).</li>
+                                            <li>أو 7 حبات من المكسرات النيئة (لوز أو جوز).</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- وجبة الغداء -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingLunch">
+                                    <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLunch" aria-expanded="false" aria-controls="collapseLunch">
+                                        <i class="bi bi-sun text-danger ms-2"></i> وجبة الغداء (2:30 مساءً)
+                                    </button>
+                                </h2>
+                                <div id="collapseLunch" class="accordion-collapse collapse" aria-labelledby="headingLunch" data-bs-parent="#dietPlanAccordion">
+                                    <div class="accordion-body bg-light">
+                                        <ul class="mb-0">
+                                            <li><strong>نصف الطبق:</strong> سلطة خضراء غنية بالألياف أو خضار مطبوخ (بدون دهون مهدرجة).</li>
+                                            <li><strong>ربع الطبق:</strong> بروتين خالي من الدهون (قطعة دجاج مشوية، سمك، أو لحم أحمر بدون دهن).</li>
+                                            <li><strong>ربع الطبق:</strong> كربوهيدرات معقدة (5 ملاعق أرز أسمر، برغل، أو حبة بطاطا صغيرة مشوية).</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- وجبة خفيفة (سناك 2) -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingSnack2">
+                                    <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSnack2" aria-expanded="false" aria-controls="collapseSnack2">
+                                        <i class="bi bi-cup-straw text-info ms-2"></i> وجبة خفيفة ثانية (5:30 مساءً)
+                                    </button>
+                                </h2>
+                                <div id="collapseSnack2" class="accordion-collapse collapse" aria-labelledby="headingSnack2" data-bs-parent="#dietPlanAccordion">
+                                    <div class="accordion-body bg-light">
+                                        <ul class="mb-0">
+                                            <li>كوب زبادي (لبن) قليل الدسم.</li>
+                                            <li>أو كوب من الخضروات المقطعة (جزر، خيار، كرفس).</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- وجبة العشاء -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingDinner">
+                                    <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDinner" aria-expanded="false" aria-controls="collapseDinner">
+                                        <i class="bi bi-moon-stars text-primary ms-2"></i> وجبة العشاء (8:30 مساءً)
+                                    </button>
+                                </h2>
+                                <div id="collapseDinner" class="accordion-collapse collapse" aria-labelledby="headingDinner" data-bs-parent="#dietPlanAccordion">
+                                    <div class="accordion-body bg-light">
+                                        <ul class="mb-0">
+                                            <li>شريحة خبز أسمر مع علبة تونة (مصفاة من الزيت) أو بيضة مسلوقة.</li>
+                                            <li>سلطة خفيفة.</li>
+                                            <li>يمكن استبدالها بطبق من شوربة الخضار أو العدس (بدون إضافة بطاطس أو شعيرية كثيرة).</li>
+                                        </ul>
+                                        <hr>
+                                        <small class="text-muted"><i class="bi bi-info-circle"></i> <strong>ملاحظة هامة:</strong> يجب استشارة الطبيب أو أخصائي التغذية قبل تطبيق أي نظام غذائي، لتعديل الكميات بما يتناسب مع قراءات السكر والوزن والأدوية المستخدمة.</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- قسم الآلة الحاسبة (مؤشر كتلة الجسم) -->
+            <div class="col-md-12 col-lg-4">
+                <div class="card h-100 shadow-sm border-0 p-3">
+                    <div class="card-body text-center">
+                        <i class="bi bi-calculator card-icon text-warning"></i>
+                        <h4 class="card-title fw-bold">حاسبة السمنة (BMI)</h4>
+                        <p class="card-text text-muted small">السمنة من أهم عوامل خطر السكري. احسب مؤشر كتلة جسمك الآن.</p>
+                        
+                        <form id="bmiForm" class="mt-3 text-start">
+                            <div class="mb-2">
+                                <label for="weight" class="form-label small">الوزن (كجم)</label>
+                                <input type="number" class="form-control" id="weight" required placeholder="مثال: 75">
+                            </div>
+                            <div class="mb-3">
+                                <label for="height" class="form-label small">الطول (سم)</label>
+                                <input type="number" class="form-control" id="height" required placeholder="مثال: 170">
+                            </div>
+                            <button type="submit" class="btn btn-warning w-100 fw-bold">احسب النتيجة</button>
+                        </form>
+
+                        <!-- نتيجة الحاسبة -->
+                        <div id="bmiResult" class="result-box mt-3 p-2 rounded text-center fw-bold"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ================= Footer ================= -->
+    <footer class="bg-dark text-white py-4 mt-auto">
+        <div class="container text-center">
+            <p class="mb-2 fs-5">دليل السكري الشامل &copy; 2026</p>
+            <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">
+                <span class="text-secondary">تطوير وتصميم: 
+                    <a href="https://me.haythamzeidan.workers.dev" target="_blank" class="text-info text-decoration-none fw-bold border-bottom border-info pb-1">هيثم زيدان</a>
+                </span>
+                <span class="text-secondary d-none d-md-inline">|</span>
+                <a href="https://github.com/wazefapress" target="_blank" class="btn btn-outline-light btn-sm rounded-pill px-3">
+                    <i class="bi bi-github"></i> تابعني على GitHub
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================= Modals (النوافذ المنبثقة للمحتوى) ================= -->
+    
+    <!-- نافذة الوقاية -->
+    <div class="modal fade" id="preventionModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title"><i class="bi bi-shield-check"></i> إرشادات الوقاية من السكري</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        <li><strong>النشاط البدني:</strong> ممارسة الرياضة لمدة 30 دقيقة يومياً (كالمشي السريع).</li>
+                        <li><strong>خسارة الوزن الزائد:</strong> فقدان 5-7% من وزن الجسم يقلل الخطر بشكل كبير.</li>
+                        <li><strong>تجنب التدخين:</strong> التدخين يزيد من مقاومة الأنسولين في الجسم.</li>
+                        <li><strong>الفحوصات الدورية:</strong> فحص السكر التراكمي (HbA1c) بانتظام لمن هم فوق سن الـ 40.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة الحمية -->
+    <div class="modal fade" id="dietModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title"><i class="bi bi-apple"></i> الحمية الغذائية الموصى بها</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h5>الأطعمة المسموحة (مؤشر جلايسيمي منخفض):</h5>
+                    <p>الخضروات الورقية، الشوفان، الحبوب الكاملة، الأسماك، والمكسرات غير المملحة.</p>
+                    <hr>
+                    <h5>الأطعمة التي يجب تجنبها:</h5>
+                    <p>المشروبات الغازية، العصائر المحلاة، الخبز الأبيض، والحلويات المصنعة.</p>
+                    <div class="alert alert-warning">
+                        <strong>نصيحة:</strong> استخدم طريقة "الطبق المقسم": نصف الطبق خضار غير نشوية، ربعه بروتين خالي من الدهون، وربعه كربوهيدرات معقدة.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= Scripts ================= -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // 1. نظام الآلة الحاسبة (BMI)
+        document.getElementById('bmiForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value) / 100; // تحويل لـ متر
+            
+            if (weight > 0 && height > 0) {
+                const bmi = (weight / (height * height)).toFixed(1);
+                const resultBox = document.getElementById('bmiResult');
+                resultBox.style.display = 'block';
+                
+                let message = '';
+                let className = '';
+
+                if (bmi < 18.5) {
+                    message = `مؤشر كتلة جسمك: ${bmi} (نقص في الوزن)`;
+                    className = 'alert alert-info';
+                } else if (bmi >= 18.5 && bmi <= 24.9) {
+                    message = `مؤشر كتلة جسمك: ${bmi} (وزن طبيعي/مثالي)`;
+                    className = 'alert alert-success';
+                } else if (bmi >= 25 && bmi <= 29.9) {
+                    message = `مؤشر كتلة جسمك: ${bmi} (زيادة في الوزن - انتبه لخطر السكري)`;
+                    className = 'alert alert-warning';
+                } else {
+                    message = `مؤشر كتلة جسمك: ${bmi} (سمنة - خطر مرتفع للإصابة بالسكري)`;
+                    className = 'alert alert-danger';
+                }
+
+                resultBox.className = `result-box mt-3 p-2 rounded text-center fw-bold ${className}`;
+                resultBox.innerText = message;
+            }
+        });
+
+        // 2. زر المشاركة (Web Share API)
+        document.getElementById('shareBtn').addEventListener('click', async () => {
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: 'دليل السكري الشامل',
+                        text: 'تطبيق رائع يحتوي على نصائح وأنظمة غذائية لمرضى السكري.',
+                        url: window.location.href,
+                    });
+                } catch (err) {
+                    console.log('تم إلغاء المشاركة', err);
+                }
+            } else {
+                alert('عذراً، متصفحك لا يدعم خاصية المشاركة المباشرة.');
+            }
+        });
+
+        // 3. زر تثبيت التطبيق (PWA - Progressive Web App)
+        let deferredPrompt;
+        const installBtn = document.getElementById('installBtn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // منع ظهور الرسالة الافتراضية
+            e.preventDefault();
+            // حفظ الحدث لاستخدامه لاحقاً
+            deferredPrompt = e;
+            // إظهار زر التثبيت
+            installBtn.classList.remove('d-none');
+        });
+
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    installBtn.classList.add('d-none');
+                }
+                deferredPrompt = null;
+            }
+        });
+
+        // تسجيل Service Worker ليعمل التطبيق بدون إنترنت ويدعم التثبيت
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js').catch(err => {
+                    console.log('Service Worker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
