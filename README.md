@@ -10,7 +10,7 @@
   
   
 
-    <a href="https://wazefapress.github.io/Diabetes-Comprehensive-Guide/"><strong>View Demo</strong></a>
+    <a href="https://wazefapress.github.io/Diabetes-Comprehensive-Guide/">View Demo</a>
  
   
 </div>
