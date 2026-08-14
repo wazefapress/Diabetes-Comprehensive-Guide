@@ -10,11 +10,11 @@
   
   
 
-    <a href="https://wazefapress.github.io/Diabetes-Comprehensive-Guide/">View Demo</a>
+ 
  
   
 </div>
-
+   <a href="https://wazefapress.github.io/Diabetes-Comprehensive-Guide/">View Demo</a>
 <hr>
 
 ## 📝 About The Project
